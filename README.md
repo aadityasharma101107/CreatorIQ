@@ -58,7 +58,7 @@ creatoriq/
 │           ├── AuthPage.jsx             # Login & Registration with Role selector
 │           └── Dashboard.jsx            # Main analytics dashboard, charts & tabs
 └── README.md
-
+```
 Local Setup & InstallationPrerequisitesPython 3.10+Node.js 18+ and npm1. Backend Setup (FastAPI)Bashcd backend
 python -m venv venv
 
