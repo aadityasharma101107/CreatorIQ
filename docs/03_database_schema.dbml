@@ -1,0 +1,104 @@
+// CreatorIQ Database Schema (PostgreSQL)
+
+Enum user_role {
+  creator
+  agency
+  marketing_team
+  admin
+}
+
+Enum platform_type {
+  youtube
+  instagram
+  tiktok
+  facebook
+  twitter_x
+  linkedin
+}
+
+Enum revenue_source_type {
+  sponsorship
+  ad_revenue
+  affiliate_marketing
+  brand_collaboration
+  subscription
+}
+
+Table users {
+  id integer [pk, increment]
+  full_name varchar(120) [not null]
+  email varchar(150) [unique, not null]
+  password_hash varchar(255) [not null]
+  role user_role [not null, default: 'creator']
+  organization_name varchar(150) [note: 'Used for Agency or Marketing Team profiles']
+  is_active boolean [default: true]
+  created_at timestamp [default: `now()`]
+}
+
+Table social_accounts {
+  id integer [pk, increment]
+  user_id integer [not null, ref: > users.id]
+  platform platform_type [not null]
+  account_handle varchar(100) [not null]
+  platform_account_id varchar(150) [not null]
+  access_token text
+  followers_count integer [default: 0]
+  last_synced_at timestamp
+  created_at timestamp [default: `now()`]
+}
+
+Table content_items {
+  id integer [pk, increment]
+  social_account_id integer [not null, ref: > social_accounts.id]
+  external_post_id varchar(150) [unique, not null]
+  title varchar(255)
+  content_type varchar(50) [note: 'video, reel, short, post, story']
+  published_at timestamp [not null]
+}
+
+Table content_metrics {
+  id integer [pk, increment]
+  content_item_id integer [not null, ref: > content_items.id]
+  views integer [default: 0]
+  likes integer [default: 0]
+  comments integer [default: 0]
+  shares integer [default: 0]
+  saves integer [default: 0]
+  watch_time_minutes float [default: 0.0]
+  reach integer [default: 0]
+  impressions integer [default: 0]
+  engagement_rate float [default: 0.0]
+  recorded_at timestamp [default: `now()`]
+}
+
+Table audience_demographics {
+  id integer [pk, increment]
+  social_account_id integer [not null, ref: > social_accounts.id]
+  age_group varchar(20) [note: 'e.g., 18-24, 25-34']
+  gender varchar(20)
+  country varchar(80)
+  device_type varchar(50) [note: 'mobile, desktop, tablet']
+  peak_active_hour integer [note: '0 to 23']
+  percentage float [not null]
+  recorded_date date [not null]
+}
+
+Table revenue_records {
+  id integer [pk, increment]
+  user_id integer [not null, ref: > users.id]
+  social_account_id integer [ref: > social_accounts.id]
+  source_type revenue_source_type [not null]
+  sponsor_or_campaign_name varchar(150)
+  amount_inr decimal(12, 2) [not null]
+  status varchar(30) [default: 'received', note: 'pending, received']
+  earned_date date [not null]
+}
+
+Table notifications {
+  id integer [pk, increment]
+  user_id integer [not null, ref: > users.id]
+  alert_type varchar(50) [note: 'engagement_spike, revenue_milestone, weekly_report']
+  message text [not null]
+  is_read boolean [default: false]
+  created_at timestamp [default: `now()`]
+}
