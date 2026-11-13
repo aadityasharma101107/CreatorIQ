@@ -59,33 +59,66 @@ creatoriq/
 │           └── Dashboard.jsx            # Main analytics dashboard, charts & tabs
 └── README.md
 ```
-Local Setup & InstallationPrerequisitesPython 3.10+Node.js 18+ and npm1. Backend Setup (FastAPI)Bashcd backend
+
+---
+
+## Local Setup & Installation
+
+### Prerequisites
+- **Python** 3.10+
+- **Node.js** 18+ and **npm**
+
+### 1. Backend Setup (FastAPI)
+
+```bash
+cd backend
 python -m venv venv
 
 # Activate virtual environment
-## On Windows (PowerShell):
+# On Windows (PowerShell):
 .\venv\Scripts\Activate.ps1
-## On macOS/Linux:
+# On macOS/Linux:
 source venv/bin/activate
 
-## Install dependencies
+# Install dependencies
 pip install fastapi uvicorn sqlalchemy pydantic "bcrypt==4.0.1" python-jose[cryptography] email-validator
 
 # Run the FastAPI server
 uvicorn main:app --reload
-Backend API runs at: http://127.0.0.1:8000Interactive Swagger API Docs: http://127.0.0.1:8000/docs2. Frontend Setup (React + Vite)Open a new terminal window:Bashcd frontend
+```
+
+- Backend API runs at: `http://127.0.0.1:8000`
+- Interactive Swagger API Docs: `http://127.0.0.1:8000/docs`
+
+### 2. Frontend Setup (React + Vite)
+
+Open a new terminal window:
+
+```bash
+cd frontend
 npm install
 npm run dev
-Frontend application runs at: http://localhost:5173
-API Endpoints (Milestone 1)
-|Method       |        Endpoint      |      Access             |              Description          POST            /api/auth/register       Public             Register a new user with a selected                                                                RBAC role                              POST            /api/auth/login          Public             Authenticate user and return JWT                                                                   access token                        GET              /api/auth/me          Authenticated        Retrieve current logged-in user                                                                    profile                             GET         /api/dashboard/overview    Authenticated        Fetch dashboard KPI and analytics                                                                  summary                                GET          /api/admin/users             admin only        List all registered users (RBAC                                                                    protected)  |                          ## Development Roadmap
-**[x] Milestone 1 (Weeks 1–2):** Project initialization, system architecture, DBML schema, UI wireframes, FastAPI + JWT/RBAC auth, and interactive React analytics dashboard.
-**[ ] Milestone 2 (Weeks 3–4):** Engagement tracking workflows, audience demographics reports, growth/trend charts, and YouTube/Instagram API integrations.
-**[ ] Milestone 3 (Weeks 5–6):** Revenue & sponsorship tracking, monetization analytics, alert/notification system, and PDF/Excel report exports.
-**[ ] Milestone 4 (Weeks 7–8):** End-to-end testing, performance optimization, Docker containerization, and AWS/Azure cloud deployment.
+```
 
-Once you save this file, you can push Milestone 1 to GitHub with:
-```bash
-git add .
-git commit -m "Complete Milestone 1: Auth, RBAC, and CreatorIQ Analytics Dashboard"
-git push origin master
+- Frontend application runs at: `http://localhost:5173`
+
+---
+
+## API Endpoints (Milestone 1)
+
+| Method | Endpoint | Access | Description |
+| :--- | :--- | :--- | :--- |
+| `POST` | `/api/auth/register` | Public | Register a new user with a selected RBAC role |
+| `POST` | `/api/auth/login` | Public | Authenticate user and return JWT access token |
+| `GET` | `/api/auth/me` | Authenticated | Retrieve current logged-in user profile |
+| `GET` | `/api/dashboard/overview` | Authenticated | Fetch dashboard KPI and analytics summary |
+| `GET` | `/api/admin/users` | `admin` only | List all registered users (RBAC protected) |
+
+---
+
+## Development Roadmap
+
+- [x] **Milestone 1 (Weeks 1–2):** Project initialization, system architecture, DBML schema, UI wireframes, FastAPI + JWT/RBAC auth, and interactive React analytics dashboard.
+- [ ] **Milestone 2 (Weeks 3–4):** Engagement tracking workflows, audience demographics reports, growth/trend charts, and YouTube/Instagram API integrations.
+- [ ] **Milestone 3 (Weeks 5–6):** Revenue & sponsorship tracking, monetization analytics, alert/notification system, and PDF/Excel report exports.
+- [ ] **Milestone 4 (Weeks 7–8):** End-to-end testing, performance optimization, Docker containerization, and AWS/Azure cloud deployment.
