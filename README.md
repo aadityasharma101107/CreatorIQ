@@ -58,3 +58,27 @@ creatoriq/
 │           ├── AuthPage.jsx             # Login & Registration with Role selector
 │           └── Dashboard.jsx            # Main analytics dashboard, charts & tabs
 └── README.md
+
+Local Setup & InstallationPrerequisitesPython 3.10+Node.js 18+ and npm1. Backend Setup (FastAPI)Bashcd backend
+python -m venv venv
+
+# Activate virtual environment
+# On Windows (PowerShell):
+.\venv\Scripts\Activate.ps1
+# On macOS/Linux:
+source venv/bin/activate
+
+# Install dependencies
+pip install fastapi uvicorn sqlalchemy pydantic "bcrypt==4.0.1" python-jose[cryptography] email-validator
+
+# Run the FastAPI server
+uvicorn main:app --reload
+Backend API runs at: http://127.0.0.1:8000Interactive Swagger API Docs: http://127.0.0.1:8000/docs2. Frontend Setup (React + Vite)Open a new terminal window:Bashcd frontend
+npm install
+npm run dev
+Frontend application runs at: http://localhost:5173API Endpoints (Milestone 1)MethodEndpointAccessDescriptionPOST/api/auth/registerPublicRegister a new user with a selected RBAC rolePOST/api/auth/loginPublicAuthenticate user and return JWT access tokenGET/api/auth/meAuthenticatedRetrieve current logged-in user profileGET/api/dashboard/overviewAuthenticatedFetch dashboard KPI and analytics summaryGET/api/admin/usersadmin onlyList all registered users (RBAC protected)Development Roadmap[x] Milestone 1 (Weeks 1–2): Project initialization, system architecture, DBML schema, UI wireframes, FastAPI + JWT/RBAC auth, and interactive React analytics dashboard.[ ] Milestone 2 (Weeks 3–4): Engagement tracking workflows, audience demographics reports, growth/trend charts, and YouTube/Instagram API integrations.[ ] Milestone 3 (Weeks 5–6): Revenue & sponsorship tracking, monetization analytics, alert/notification system, and PDF/Excel report exports.[ ] Milestone 4 (Weeks 7–8): End-to-end testing, performance optimization, Docker containerization, and AWS/Azure cloud deployment.
+Once you save this file, you can push Milestone 1 to GitHub with:
+```bash
+git add .
+git commit -m "Complete Milestone 1: Auth, RBAC, and CreatorIQ Analytics Dashboard"
+git push origin master
